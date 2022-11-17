@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.Random;
 
@@ -26,10 +27,11 @@ public class MainActivity extends AppCompatActivity {
     }
     public void escolhaJogador(String escolhaJogador){
         ImageView figResultado = findViewById(R.id.figResultado);
+        TextView textResutado = findViewById(R.id.textResultado);
         int numero = new Random().nextInt(3);
-        String[] opcaoUsuario = {"pedra", "papel", "tesoura"};
-        String opcaoApp = opcaoUsuario [numero];
-        switch ( opcaoApp ){
+        String[] opcoes = {"pedra", "papel", "tesoura"};
+        String escolhaApp = opcoes [numero];
+        switch ( escolhaApp ){
             case "pedra" : figResultado.setImageResource(R.drawable.pedra);
                 break;
             case "papel" : figResultado.setImageResource(R.drawable.papel);
@@ -37,7 +39,27 @@ public class MainActivity extends AppCompatActivity {
             case "tesoura" : figResultado.setImageResource(R.drawable.tesoura);
                 break;
         }
-        System.out.println( "Voce escolheu: " + opcaoApp);
+        if (
+                (escolhaApp == "pedra" && escolhaJogador == "tesoura") ||
+                (escolhaApp == "papel" && escolhaJogador == "pedra") ||
+                (escolhaApp == "tesoura" && escolhaJogador == "papel")
+
+        ){ //Aplicativo Ganhou
+            textResutado.setText("Que Pena!! Voce Perdeu!! Jogue novamente e mude a sua sorte :(");
+
+        }else if (
+                (escolhaJogador == "pedra" && escolhaApp == "tesoura") ||
+                (escolhaJogador == "papel" && escolhaApp == "pedra") ||
+                (escolhaJogador == "tesoura" && escolhaApp == "papel")
+        ){//Usuário Ganhou
+            textResutado.setText("Parabéns!! Voce Ganhou!! Jogue novamente e Prove a tua sorte :)");
+
+        }else {//Empate
+            textResutado.setText("Empatamos!! Vamos jogar novamente!!");
+
+        }
+
+        System.out.println( "Voce escolheu: " + escolhaApp);
 
 
     }
